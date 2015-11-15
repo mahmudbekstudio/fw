@@ -7,7 +7,7 @@ return array_merge(
 		'router' => array(
 			array('GET', '/', 'default/index', 'home')
 		),
-		'baseUrl' => '/student/frontend',
+		'baseUrl' => '/fw/frontend',
 		'html' => array(
 			'content' => array(),
 			'beforeContent' => array(),

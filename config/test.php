@@ -6,6 +6,6 @@ return array_merge(
 		'router' => array(
 			array('GET', '/', 'default/index', 'home')
 		),
-		'baseUrl' => '/student/test'
+		'baseUrl' => '/fw/test'
 	)
 );

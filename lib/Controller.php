@@ -4,6 +4,13 @@ namespace application\lib;
 class Controller extends Instance {
 	public $layout = 'main';
 	private $view;
+	protected $access = array(
+		/*array(
+			'action' => array(), //list of actions to access
+			'operation' => '=', //>, >=, <, <=, = (default =)
+			'lavel' => '0' //user role level (default 0)
+		)*/
+	);
 
 	public function __construct() {
 		$this->view = new View($this->layout);
@@ -11,7 +18,7 @@ class Controller extends Instance {
 
 	public function actionRedirect($controller = false, $action = false) {
 		if($controller == false) {
-			$controller = Application::get('config')->get(array('default', 'control'));
+			$controller = Application::get('config')->get(array('default', 'controller'));
 		}
 
 		if($action == false) {
@@ -21,14 +28,44 @@ class Controller extends Instance {
 		$controllerClass = '\application\\' . APPENV . '\controller\\' . ucfirst($controller) . 'Controller';
 		if('\\' . get_called_class() == $controllerClass) {
 			if(method_exists($this, 'action' . $action)) {
+				if(!$this->checkAccess($this->getAccess(), $action)) {
+					$action = '404';
+				}
 				call_user_func(array($this, 'action' . $action));
 			} else {
 				$this->action404();
 			}
 		} else {
 			$c = new $controllerClass();
+			if(!$this->checkAccess($c->getAccess(), $action)) {
+				$action = '404';
+			}
 			$c->actionRedirect($controller, $action);
 		}
+	}
+
+	private function checkAccess($access, $action) {
+		$result = true;
+		if(is_array($access) && $accessCount = count($access) > 0) {
+			$level = Application::get('authenticate')->getLevel();
+			for($i = 0; $i < $accessCount; $i++) {
+				if(in_array($action, $access[$i][0]) ) {
+					if($access[$i][1] == '>') {
+						$result = $level > $access[$i][2];
+					} elseif($access[$i][1] == '>=') {
+						$result = $level >= $access[$i][2];
+					} elseif($access[$i][1] == '<') {
+						$result = $level < $access[$i][2];
+					} elseif($access[$i][1] == '<=') {
+						$result = $level <= $access[$i][2];
+					} else {
+						$result = $level == $access[$i][2];
+					}
+					break;
+				}
+			}
+		}
+		return $result;
 	}
 
 	public function action404() {
@@ -45,5 +82,9 @@ class Controller extends Instance {
 
 	public function getPlugin($name) {
 		return Application::getPlugin($name);
+	}
+
+	public function getAccess() {
+		return $this->access;
 	}
 }

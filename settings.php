@@ -3,6 +3,7 @@ use application\lib\Config;
 use application\lib\Application;
 use application\lib\AltoRouter;
 use application\lib\MysqliDb;
+use application\lib\Authentication;
 
 if ( !defined('PATHROOT') )
 	define('PATHROOT', dirname(__FILE__));
@@ -27,6 +28,7 @@ $router = array_merge($config->get('router'), $config->get(array('default', 'rou
 $config->set('router', $router);
 $dbConfig = $config->get('db');
 
+Application::set('authenticate', new Authentication());
 Application::set('router', new AltoRouter($router, $config->get('baseUrl')));
 Application::set('db', new MysqliDb(array( 'host' => $dbConfig['host'],
                                            'username' => $dbConfig['user'],
