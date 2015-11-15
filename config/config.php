@@ -1,0 +1,49 @@
+<?php
+
+return array(
+	'db' => array(
+		'host'=> 'localhost',
+		'db' => 'student',
+		'user' => 'root',
+		'pass' => '',
+		'port' => 3306,
+		'prefix' => 'std_',
+		'charset' => 'utf8'
+	),
+	'path' => array(
+		'root' => PATHROOT,
+		'api' => PATHROOT . '/api',
+		'backend' => PATHROOT . '/backend',
+		'frontend' => PATHROOT . '/frontend',
+		'test' => PATHROOT . '/test',
+		'config' => PATHROOT . '/config',
+		'lib' => PATHROOT . '/lib',
+		'model' => PATHROOT . '/model'
+	),
+	'adminEmail' => 'mahmudbekstudio@mail.ru',
+	'default' => array(
+		'controller' => 'default',
+		'method' => 'index',
+		'router' => array(
+			array('GET', '/[a:controller]/[a:action]?', 'default/redirect', 'redirect'),
+			array('GET', '/[a:controller]?', 'default/redirect', 'redirectController'),
+			array('GET', '/?', 'default/redirect', 'redirectEmpty'),
+			array('GET|POST', '*', 'default/404', '404')
+		)
+	),
+	'baseUrl' => '',
+	'root' => '', // changed in application
+	'initPlugin' => array(),
+	'html' => array(
+		'content' => array(),
+		'beforeContent' => array(),
+		'afterContent' => array(),
+		'header' => array(
+			/*
+			'src' => '',
+			'type' => 'script' // script, style, or array of tag params
+			*/
+		),
+		'footer' => array()
+	)
+);
