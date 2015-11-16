@@ -21,7 +21,7 @@ class Authentication extends Instance {
 	}
 
 	public function setLevel($level = false) {
-		if($level === false && !$this->session->check('level')) {
+		if($level === false || !$this->session->check('level')) {
 			$level = $this->defaultLevel;
 		}
 		$this->session->set('level', $level);

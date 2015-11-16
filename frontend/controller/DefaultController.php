@@ -7,7 +7,8 @@ use application\lib\Controller;
 class DefaultController extends Controller {
 
 	protected $access = array(
-		array(array('test1', 'test2'), '>', '2'),
+		array(array('test1', 'test2'), '>', '-2'),
+		array(array('test3'), '>', '2'),
 		array(array('test5', 'test4'), '=', '1')
 	);
 
@@ -26,6 +27,10 @@ class DefaultController extends Controller {
 
 	public function actionTest2() {
 		echo 'test2';
+	}
+
+	public function actionTest3() {
+		echo 'test3';
 	}
 
 	public function actionTest4() {

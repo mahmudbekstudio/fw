@@ -46,7 +46,7 @@ class Controller extends Instance {
 
 	private function checkAccess($access, $action) {
 		$result = true;
-		if(is_array($access) && $accessCount = count($access) > 0) {
+		if(is_array($access) && ($accessCount = count($access)) > 0) {
 			$level = Application::get('authenticate')->getLevel();
 			for($i = 0; $i < $accessCount; $i++) {
 				if(in_array($action, $access[$i][0]) ) {
