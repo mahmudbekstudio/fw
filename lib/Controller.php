@@ -31,8 +31,8 @@ class Controller extends Instance {
 				$access = $this->checkAccess($this->getAccess(), $action);
 				if($access !== true) {
 					if(is_array($access)) {
-						$controller = $access[0];
-						$action = $access[1];
+						$controller = isset($access[0]) ? $access[0] : Application::get('config')->get(array('default', 'controller'));
+						$action = isset($access[1]) ? $access[1] : Application::get('config')->get(array('default', 'method'));
 					} else {
 						$action = $access;
 					}
@@ -50,8 +50,8 @@ class Controller extends Instance {
 			$access = $this->checkAccess($c->getAccess(), $action);
 			if($access !== true) {
 				if(is_array($access)) {
-					$controller = $access[0];
-					$action = $access[1];
+					$controller = isset($access[0]) ? $access[0] : Application::get('config')->get(array('default', 'controller'));
+					$action = isset($access[1]) ? $access[1] : Application::get('config')->get(array('default', 'method'));
 				} else {
 					$action = $access;
 				}

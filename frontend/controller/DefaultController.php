@@ -9,7 +9,10 @@ class DefaultController extends Controller {
 	protected $access = array(
 		array(array('test1', 'test2'), '>', '-2'),
 		array(array('test3'), '>', '2', 'testing'),
-		array(array('test5', 'test4'), '=', '1')
+		array(array('test5', 'test4'), '=', '1'),
+		array(array('test6'), '>=', '1', array('search', 'test')),
+		array(array('test7'), '>=', '1', array('search')),
+		array(array('test8'), '>=', '1', array()),
 	);
 
 	public function actionIndex() {
@@ -22,7 +25,7 @@ class DefaultController extends Controller {
 	}
 
 	public function actionTesting() {
-		echo 'testing';
+		echo 'default controller testing';
 	}
 
 	public function actionTest1() {
@@ -43,5 +46,17 @@ class DefaultController extends Controller {
 
 	public function actionTest5() {
 		echo 'test5';
+	}
+
+	public function actionTest6() {
+		echo 'test6';
+	}
+
+	public function actionTest7() {
+		echo 'test7';
+	}
+
+	public function actionTest8() {
+		echo 'test8';
 	}
 }
