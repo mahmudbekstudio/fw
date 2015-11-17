@@ -8,7 +8,7 @@ class DefaultController extends Controller {
 
 	protected $access = array(
 		array(array('test1', 'test2'), '>', '-2'),
-		array(array('test3'), '>', '2'),
+		array(array('test3'), '>', '2', 'testing'),
 		array(array('test5', 'test4'), '=', '1')
 	);
 
@@ -19,6 +19,10 @@ class DefaultController extends Controller {
 
 	public function action404() {
 		echo __CLASS__ . ' 404';
+	}
+
+	public function actionTesting() {
+		echo 'testing';
 	}
 
 	public function actionTest1() {

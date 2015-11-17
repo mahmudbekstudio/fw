@@ -28,17 +28,33 @@ class Controller extends Instance {
 		$controllerClass = '\application\\' . APPENV . '\controller\\' . ucfirst($controller) . 'Controller';
 		if('\\' . get_called_class() == $controllerClass) {
 			if(method_exists($this, 'action' . $action)) {
-				if(!$this->checkAccess($this->getAccess(), $action)) {
-					$action = '404';
+				$access = $this->checkAccess($this->getAccess(), $action);
+				if($access !== true) {
+					if(is_array($access)) {
+						$controller = $access[0];
+						$action = $access[1];
+					} else {
+						$action = $access;
+					}
 				}
-				call_user_func(array($this, 'action' . $action));
+				if(is_array($access)) {
+					$this->actionRedirect($controller, $action);
+				} else {
+					call_user_func(array($this, 'action' . $action));
+				}
 			} else {
 				$this->action404();
 			}
 		} else {
 			$c = new $controllerClass();
-			if(!$this->checkAccess($c->getAccess(), $action)) {
-				$action = '404';
+			$access = $this->checkAccess($c->getAccess(), $action);
+			if($access !== true) {
+				if(is_array($access)) {
+					$controller = $access[0];
+					$action = $access[1];
+				} else {
+					$action = $access;
+				}
 			}
 			$c->actionRedirect($controller, $action);
 		}
@@ -60,6 +76,9 @@ class Controller extends Instance {
 						$result = $level <= $access[$i][2];
 					} else {
 						$result = $level == $access[$i][2];
+					}
+					if(!$result) {
+						$result = isset($access[$i][3]) ? $access[$i][3] : '404';
 					}
 					break;
 				}
