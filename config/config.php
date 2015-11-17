@@ -31,7 +31,7 @@ return array(
 			array('GET|POST', '*', 'default/404', '404')
 		)
 	),
-	'baseUrl' => '',
+	'baseUrl' => BASEURL,
 	'root' => '', // changed in application
 	'initPlugin' => array(),
 	'html' => array(
@@ -40,8 +40,9 @@ return array(
 		'afterContent' => array(),
 		'header' => array(
 			/*
-			'src' => '',
-			'type' => 'script' // script, style, or array of tag params
+			'tag' => 'script',
+			'params' => array('src' => , ...),
+			'inner' => ''
 			*/
 		),
 		'footer' => array()

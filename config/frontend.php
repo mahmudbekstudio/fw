@@ -7,23 +7,23 @@ return array_merge(
 		'router' => array(
 			array('GET', '/', 'default/index', 'home')
 		),
-		'baseUrl' => '/fw/frontend',
+		//'baseUrl' => '/fw/frontend',
 		'html' => array(
 			'content' => array(),
 			'beforeContent' => array(),
 			'afterContent' => array(),
 			'header' => array(
 				/*
-				'src' => '',
-				'type' => 'script' // script, style, or array of tag params
-				'code' => {code of style or js}
+				'tag' => 'script',
+				'params' => array('src' => , ...),
+				'inner' => ''
 				*/
-				'bootstrap' => array('src' => 'bootstrap.min.css', 'type' => 'style'),
-				'bootstrap-theme' => array('src' => 'bootstrap-theme.min.css', 'type' => 'style')
+				'bootstrap' => array('tag' => 'link', 'params' => array('href' => BASEURL . '/css/bootstrap.min.css', 'rel' => 'stylesheet')),
+				'bootstrap-theme' => array('tag' => 'link', 'params' => array('href' => BASEURL . '/css/bootstrap-theme.min.css', 'rel' => 'stylesheet'))
 			),
 			'footer' => array(
-				'jquery' => array('src' => 'jquery-1.11.3.min.js', 'type' => 'script'),
-				'bootstrap' => array('src' => 'bootstrap.min.js', 'type' => 'script')
+				'jquery' => array('tag' => 'script', 'params' => array('src' => BASEURL . '/js/jquery-1.11.3.min.js')),
+				'bootstrap' => array('tag' => 'script', 'params' => array('src' => BASEURL . '/js/bootstrap.min.js'))
 			)
 		)
 	)

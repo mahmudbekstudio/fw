@@ -59,6 +59,7 @@ class Application extends Instance {
 	private static function initPlugin() {
 		$pluginsList = self::get('config')->get('initPlugin');
 		$pluginsListCount = count($pluginsList);
+
 		for($i = 0; $i < $pluginsListCount; $i++) {
 			Plugin::get($pluginsList[$i])->init();
 		}
@@ -66,6 +67,20 @@ class Application extends Instance {
 
 	private static function initView() {
 		$config = self::get('config')->get('html');
-		print_R($config);exit;
+
+		foreach($config as $type => $configItems) {
+			$type = ucfirst($type);
+
+			foreach($configItems as $key => $val) {
+				$val['params'] = isset($val['params']) ? $val['params'] : array();
+				$val['inner'] = isset($val['inner']) ? $val['inner'] : '';
+				$tagComment = Tag::getComment($key);
+				$tag = Tag::get($val['tag'], $val['params'], $val['inner']);
+				$method = __NAMESPACE__ . '\View::add' . $type;
+
+				call_user_func_array($method, array($tagComment));
+				call_user_func_array($method, array($tag));
+			}
+		}
 	}
 }

@@ -68,11 +68,11 @@ class View extends Instance {
 	}
 
 	public static function addFooter($content) {
-		self::$footer = $content;
+		self::$footer[] = $content;
 	}
 
 	private function joinContent($content) {
-		return join("\n", $content);
+		return join("\n", $content) . "\n";
 	}
 
 }

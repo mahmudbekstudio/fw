@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php echo \application\lib\Tag::getDoctype() . "\n"; ?>
 <html lang="en">
 <head>
 	<?php /*<meta charset="utf-8">

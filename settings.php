@@ -11,6 +11,9 @@ if ( !defined('PATHROOT') )
 if ( !defined('APPENV') )
 	define('APPENV', 'frontend');
 
+if( !defined('BASEURL') )
+	define('BASEURL', substr($_SERVER['PHP_SELF'], 0, strlen($_SERVER['PHP_SELF']) - 10));
+
 function __autoload($className) {
 	$file = str_replace('application', PATHROOT, str_replace('\\', DIRECTORY_SEPARATOR, $className)) . '.php';
 

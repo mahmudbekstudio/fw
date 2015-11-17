@@ -35,7 +35,7 @@ class Tag extends Instance {
 			} else {
 				$params = self::getParams($params);
 
-				if(in_array($tag, self::$singleTags)) {
+				if(!in_array($tag, self::$singleTags)) {
 					$result = '<' . $tag . $params . '>' . $inner . '</' . $tag . '>';
 				} else {
 					$result = '<' . $tag . $params . ' />';
