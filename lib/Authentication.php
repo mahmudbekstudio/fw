@@ -9,7 +9,7 @@ class Authentication extends Instance {
 	public function __construct($defaultLevel = 0) {
 		$this->session = new Session('authentication');
 		$this->setDefaultLevel($defaultLevel);
-		$this->setLevel();
+		$this->reset();
 	}
 
 	public function setDefaultLevel($level) {
@@ -29,6 +29,30 @@ class Authentication extends Instance {
 
 	public function getLevel() {
 		return $this->session->get('level');
+	}
+
+	public function setParams($params = array()) {
+		$params = is_array($params) ? $params : array();
+		$this->session->set('params', $params);
+	}
+
+	public function getParams($field = false) {
+		$result = $this->session->get('params');
+
+		if($field && isset($result[$field])) {
+			$result = $result[$field];
+		}
+
+		return $result;
+	}
+
+	public function haveParams() {
+		return count($this->getParams()) > 0;
+	}
+
+	public function reset() {
+		$this->setLevel();
+		$this->setParams();
 	}
 
 }
