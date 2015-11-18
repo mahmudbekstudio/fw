@@ -16,6 +16,11 @@ class DefaultController extends Controller {
 		array(array('test9'),           '>=',   'user'),
 	);
 
+	public function __construct() {
+		parent::__construct();
+		Application::get('config')->set(array('html', 'header', 'title', 'inner'), 'testing');
+	}
+
 	public function actionIndex() {
 		$request = Application::getVar('request', array('type' => 'get', 'space' => 'test'));
 		$this->getView()->render('test', array('request' => $request));

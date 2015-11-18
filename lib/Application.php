@@ -9,7 +9,6 @@ class Application extends Instance {
 		self::set('config', $config);
 		$config->set('root', $config->get(array('path', APPENV)));
 
-		self::initView();
 		self::initPlugin();
 
 		$match = self::get('router')->match();
@@ -62,28 +61,6 @@ class Application extends Instance {
 
 		for($i = 0; $i < $pluginsListCount; $i++) {
 			Plugin::get($pluginsList[$i])->init();
-		}
-	}
-
-	private static function initView() {
-		$config = self::get('config')->get('html');
-
-		foreach($config as $type => $configItems) {
-			$type = ucfirst($type);
-
-			foreach($configItems as $key => $val) {
-				$val['params'] = isset($val['params']) ? $val['params'] : array();
-				$val['inner'] = isset($val['inner']) ? $val['inner'] : '';
-				$tag = Tag::get($val['tag'], $val['params'], $val['inner']);
-				$method = __NAMESPACE__ . '\View::add' . $type;
-
-				if(isset($val['comment'])) {
-					$tagComment = Tag::getComment($val['comment']);
-					call_user_func_array($method, array($tagComment));
-				}
-
-				call_user_func_array($method, array($tag));
-			}
 		}
 	}
 }

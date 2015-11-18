@@ -30,6 +30,7 @@ class View extends Instance {
 	}
 
 	public function renderView() {
+		$this->init();
 		$theme = Application::get('config')->get('theme');
 		include PATHROOT . DIRECTORY_SEPARATOR . APPENV . '/themes/' . $theme . '/layout/' . $this->layout . '.php';
 	}
@@ -73,6 +74,28 @@ class View extends Instance {
 
 	private function joinContent($content) {
 		return join("\n", $content) . "\n";
+	}
+
+	private function init() {
+		$config = Application::get('config')->get('html');
+
+		foreach($config as $type => $configItems) {
+			$type = ucfirst($type);
+
+			foreach($configItems as $key => $val) {
+				$val['params'] = isset($val['params']) ? $val['params'] : array();
+				$val['inner'] = isset($val['inner']) ? $val['inner'] : '';
+				$tag = Tag::get($val['tag'], $val['params'], $val['inner']);
+				$method = __NAMESPACE__ . '\View::add' . $type;
+
+				if(isset($val['comment'])) {
+					$tagComment = Tag::getComment($val['comment']);
+					call_user_func_array($method, array($tagComment));
+				}
+
+				call_user_func_array($method, array($tag));
+			}
+		}
 	}
 
 }

@@ -21,6 +21,11 @@ return array_merge(
 				'charset' => array('tag' => 'meta', 'params' => array('charset' => 'utf-8')),
 				'compatible' => array('tag' => 'meta', 'params' => array('http-equiv' => 'X-UA-Compatible', 'content' => 'IE=edge')),
 				'viewport' => array('tag' => 'meta', 'params' => array('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1')),
+				'description' => array('tag' => 'meta', 'params' => array('name' => 'description', 'content' => '')),// description of website
+				'keywords' => array('tag' => 'meta', 'params' => array('name' => 'keywords', 'content' => '')),// keywords of website
+				'author' => array('tag' => 'meta', 'params' => array('name' => 'author', 'content' => '')),// author of website
+				'favicon' => array('tag' => 'link', 'params' => array('rel' => 'icon', 'href' => '')),// favicon icon of website
+				'title' => array('tag' => 'title', 'inner' => ''),// title for change
 				'bootstrap' => array('tag' => 'link', 'params' => array('href' => BASEURL . '/css/bootstrap.min.css', 'rel' => 'stylesheet'), 'comment' => 'bootstrap core styles'),
 				'bootstrap-theme' => array('tag' => 'link', 'params' => array('href' => BASEURL . '/css/bootstrap-theme.min.css', 'rel' => 'stylesheet'), 'comment' => 'bootstrap theme styles'),
 				'respond' => array(
