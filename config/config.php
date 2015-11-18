@@ -33,7 +33,7 @@ return array(
 	),
 	'baseUrl' => BASEURL,
 	'root' => '', // changed in application
-	'initPlugin' => array(),
+	'initPlugin' => array('login'),
 	'html' => array(
 		'content' => array(),
 		'beforeContent' => array(),
