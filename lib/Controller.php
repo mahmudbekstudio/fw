@@ -64,7 +64,10 @@ class Controller extends Instance {
 		$result = true;
 		if(is_array($access) && ($accessCount = count($access)) > 0) {
 			$level = Application::get('authenticate')->getLevel();
+			$config = Application::get('config')->get('level');
+
 			for($i = 0; $i < $accessCount; $i++) {
+				$access[$i][2] = isset($config[$access[$i][2]]) ? $config[$access[$i][2]] : $access[$i][2];
 				if(in_array($action, $access[$i][0]) ) {
 					if($access[$i][1] == '>') {
 						$result = $level > $access[$i][2];

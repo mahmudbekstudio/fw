@@ -46,5 +46,13 @@ return array(
 			*/
 		),
 		'footer' => array()
+	),
+	'level' => array(
+		'guest' => 0,
+		'user' => 1,
+		'author' => 2,
+		'editor' => 3,
+		'admin' => 4,
+		'superadmin' => 5
 	)
 );

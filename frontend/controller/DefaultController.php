@@ -7,12 +7,13 @@ use application\lib\Controller;
 class DefaultController extends Controller {
 
 	protected $access = array(
-		array(array('test1', 'test2'), '>', '-2'),
-		array(array('test3'), '>', '2', 'testing'),
-		array(array('test5', 'test4'), '=', '1'),
-		array(array('test6'), '>=', '1', array('search', 'test')),
-		array(array('test7'), '>=', '1', array('search')),
-		array(array('test8'), '>=', '1', array()),
+		array(array('test1', 'test2'),  '>',    '-2'),
+		array(array('test3'),           '>',    '2',    'testing'),
+		array(array('test5', 'test4'),  '=',    '1'),
+		array(array('test6'),           '>=',   '1',    array('search', 'test')),
+		array(array('test7'),           '>=',   '1',    array('search')),
+		array(array('test8'),           '>=',   '1',    array()),
+		array(array('test9'),           '>=',   'user'),
 	);
 
 	public function actionIndex() {
@@ -25,7 +26,7 @@ class DefaultController extends Controller {
 	}
 
 	public function actionTesting() {
-		echo 'default controller testing';
+		echo 'testing';
 	}
 
 	public function actionTest1() {
@@ -58,5 +59,9 @@ class DefaultController extends Controller {
 
 	public function actionTest8() {
 		echo 'test8';
+	}
+
+	public function actionTest9() {
+		echo 'test9';
 	}
 }
