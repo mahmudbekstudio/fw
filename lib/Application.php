@@ -74,11 +74,14 @@ class Application extends Instance {
 			foreach($configItems as $key => $val) {
 				$val['params'] = isset($val['params']) ? $val['params'] : array();
 				$val['inner'] = isset($val['inner']) ? $val['inner'] : '';
-				$tagComment = Tag::getComment($key);
 				$tag = Tag::get($val['tag'], $val['params'], $val['inner']);
 				$method = __NAMESPACE__ . '\View::add' . $type;
 
-				call_user_func_array($method, array($tagComment));
+				if(isset($val['comment'])) {
+					$tagComment = Tag::getComment($val['comment']);
+					call_user_func_array($method, array($tagComment));
+				}
+
 				call_user_func_array($method, array($tag));
 			}
 		}

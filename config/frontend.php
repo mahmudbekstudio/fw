@@ -18,12 +18,20 @@ return array_merge(
 				'params' => array('src' => , ...),
 				'inner' => ''
 				*/
-				'bootstrap' => array('tag' => 'link', 'params' => array('href' => BASEURL . '/css/bootstrap.min.css', 'rel' => 'stylesheet')),
-				'bootstrap-theme' => array('tag' => 'link', 'params' => array('href' => BASEURL . '/css/bootstrap-theme.min.css', 'rel' => 'stylesheet'))
+				'charset' => array('tag' => 'meta', 'params' => array('charset' => 'utf-8')),
+				'compatible' => array('tag' => 'meta', 'params' => array('http-equiv' => 'X-UA-Compatible', 'content' => 'IE=edge')),
+				'viewport' => array('tag' => 'meta', 'params' => array('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1')),
+				'bootstrap' => array('tag' => 'link', 'params' => array('href' => BASEURL . '/css/bootstrap.min.css', 'rel' => 'stylesheet'), 'comment' => 'bootstrap core styles'),
+				'bootstrap-theme' => array('tag' => 'link', 'params' => array('href' => BASEURL . '/css/bootstrap-theme.min.css', 'rel' => 'stylesheet'), 'comment' => 'bootstrap theme styles'),
+				'respond' => array(
+					'tag' => '',
+					'inner' => "[if lt IE 9]>\n<script src=\"https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js\"></script>\n<script src=\"https://oss.maxcdn.com/respond/1.4.2/respond.min.js\"></script>\n<![endif]",
+					'comment' => "HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries\nWARNING: Respond.js doesn't work if you view the page via file://"
+				)
 			),
 			'footer' => array(
-				'jquery' => array('tag' => 'script', 'params' => array('src' => BASEURL . '/js/jquery-1.11.3.min.js')),
-				'bootstrap' => array('tag' => 'script', 'params' => array('src' => BASEURL . '/js/bootstrap.min.js'))
+				'jquery' => array('tag' => 'script', 'params' => array('src' => BASEURL . '/js/jquery-1.11.3.min.js'), 'comment' => 'jQuery'),
+				'bootstrap' => array('tag' => 'script', 'params' => array('src' => BASEURL . '/js/bootstrap.min.js'), 'comment' => 'bootstrap javascript')
 			)
 		)
 	)
