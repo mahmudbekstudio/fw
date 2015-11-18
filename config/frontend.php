@@ -32,7 +32,8 @@ return array_merge(
 					'tag' => '',
 					'inner' => "[if lt IE 9]>\n<script src=\"https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js\"></script>\n<script src=\"https://oss.maxcdn.com/respond/1.4.2/respond.min.js\"></script>\n<![endif]",
 					'comment' => "HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries\nWARNING: Respond.js doesn't work if you view the page via file://"
-				)
+				),
+				'main-style' => array('tag' => 'link', 'params' => array('href' => BASEURL . '/css/styles.css', 'rel' => 'stylesheet'), 'comment' => 'main style'),
 			),
 			'footer' => array(
 				'jquery' => array('tag' => 'script', 'params' => array('src' => BASEURL . '/js/jquery-1.11.3.min.js'), 'comment' => 'jQuery'),

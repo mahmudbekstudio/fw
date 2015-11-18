@@ -1,0 +1,69 @@
+body {
+	padding-top: 140px;
+	padding-bottom: 30px;
+}
+
+.navbar.navbar-nav {
+	margin: 0;
+	background: #3097d1;
+	border-color: #1c73a5;
+}
+
+.navbar.navbar-nav li a,
+.navbar.navbar-nav li .dropdown-menu li a {
+	color: rgba(255, 255, 255, 0.8);
+}
+.navbar.navbar-nav li a:hover,
+.navbar.navbar-nav li a:focus,
+.navbar.navbar-nav li.active a,
+.navbar.navbar-nav li.open a:hover,
+.navbar.navbar-nav li.open a:focus,
+.navbar.navbar-nav li.active a,
+.navbar.navbar-nav li.open a,
+.navbar.navbar-nav .navbar-brand,
+.navbar.navbar-nav li .dropdown-menu li a:hover,
+.navbar.navbar-nav li .dropdown-menu li a:focus,
+.navbar.navbar-nav .dropdown-header {
+	color: #ffffff;
+	background-color: transparent;
+}
+
+.navbar.navbar-nav .dropdown-header {
+	padding-left: 15px;
+	padding-right: 15px;
+	font-weight: bold;
+}
+
+.navbar.navbar-nav .navbar-toggle {
+	border-color: #1c73a5;
+}
+
+.navbar.navbar-nav .navbar-toggle:focus,
+.navbar.navbar-nav .navbar-toggle:hover {
+	background-color: #2d91ca;
+}
+
+.navbar-toggle .icon-bar {
+		background-color: #FFF;
+}
+
+@media (min-width: 768px) {
+	body {
+		padding-top: 70px;
+	}
+
+	.navbar.navbar-nav li .dropdown-menu li a {
+		padding: 10px 15px;
+		color: #3097d1;
+	}
+
+	.navbar.navbar-nav li .dropdown-menu li a:hover,
+	.navbar.navbar-nav li .dropdown-menu li a:focus {
+		background: #F5F8FA;
+		color: #216A94;
+	}
+
+	.navbar.navbar-nav .dropdown-header {
+		color: #777;
+	}
+}
