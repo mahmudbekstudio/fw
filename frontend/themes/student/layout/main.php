@@ -19,7 +19,9 @@
 			<a class="navbar-brand" href="#">Website.com</a>
 		</div>
 		<form class="navbar-form navbar-right">
-			<input type="text" placeholder="Search..." class="form-control">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Search..." aria-describedby="basic-addon1"><span id="basic-addon1" class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+			</div>
 		</form>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
