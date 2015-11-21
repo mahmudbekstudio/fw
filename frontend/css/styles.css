@@ -1,6 +1,11 @@
 body {
 	padding-top: 140px;
 	padding-bottom: 30px;
+	background-color: #f5f8fa;
+	color: #1e3948;
+	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	line-height: 1.6;
 }
 
 .navbar.navbar-nav {
@@ -45,6 +50,26 @@ body {
 
 .navbar-toggle .icon-bar {
 		background-color: #FFF;
+}
+
+.container-block {
+	margin-bottom: 22px;
+	border: #d3e0e9 1px solid;
+	border-radius: 4px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	background-color: #FFF;
+}
+
+.container-block-inner {
+	padding: 15px;
+}
+
+.container-block-border-top {
+	border-top: 1px solid #d3e0e9;
+}
+
+.container-block-border-bottom {
+	border-top: 1px solid #d3e0e9;
 }
 
 @media (min-width: 768px) {

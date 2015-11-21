@@ -47,9 +47,20 @@
 </nav>
 
 <div class="container theme-showcase" role="main">
-
-	<?php echo $this->content(); ?>
-
+	<div class="row">
+		<div class="col-lg-3 col-md-4">
+			<div class="container-block">User</div>
+		</div>
+		<div class="col-lg-6 col-md-8">
+			<div class="container-block">
+				<div class="container-block-inner">Home</div>
+				<div class="container-block-inner container-block-border-top"><?php echo $this->content(); ?></div>
+			</div>
+		</div>
+		<div class="col-lg-3 visible-lg">
+			<div class="container-block container-block-inner">News</div>
+		</div>
+	</div>
 </div> <!-- /container -->
 
 <?php $this->footer(); ?>
