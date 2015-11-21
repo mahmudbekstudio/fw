@@ -25,8 +25,8 @@ return array(
 		'controller' => 'default',
 		'method' => 'index',
 		'router' => array(
-			array('GET', '/[a:controller]/[a:action]?', 'default/redirect', 'redirect'),
-			array('GET', '/[a:controller]?', 'default/redirect', 'redirectController'),
+			array('GET', '/[a:controller]/[a:action]/?', 'default/redirect', 'redirect'),
+			array('GET', '/[a:controller]/?', 'default/redirect', 'redirectController'),
 			array('GET', '/?', 'default/redirect', 'redirectEmpty'),
 			array('GET|POST', '*', 'default/404', '404')
 		)

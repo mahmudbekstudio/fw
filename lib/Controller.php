@@ -27,16 +27,13 @@ class Controller extends Instance {
 
 		$controllerClass = '\application\\' . APPENV . '\controller\\' . ucfirst($controller) . 'Controller';
 		if('\\' . get_called_class() == $controllerClass) {
+		// work when call actionRedirect in the controller current controller action
 			if(method_exists($this, 'action' . $action)) {
 				$access = $this->checkAccess($this->getAccess(), $action);
-				if($access !== true) {
-					if(is_array($access)) {
-						$controller = isset($access[0]) ? $access[0] : Application::get('config')->get(array('default', 'controller'));
-						$action = isset($access[1]) ? $access[1] : Application::get('config')->get(array('default', 'method'));
-					} else {
-						$action = $access;
-					}
-				}
+				$accessController = $this->getAccessControllerAction($this, $action, $access);
+				$controller = $accessController['controller'];
+				$action = $accessController['action'];
+
 				if(is_array($access)) {
 					$this->actionRedirect($controller, $action);
 				} else {
@@ -46,18 +43,26 @@ class Controller extends Instance {
 				$this->action404();
 			}
 		} else {
+		// work when call actionRedirect in the controller call another controller action
 			$c = new $controllerClass();
-			$access = $this->checkAccess($c->getAccess(), $action);
-			if($access !== true) {
-				if(is_array($access)) {
-					$controller = isset($access[0]) ? $access[0] : Application::get('config')->get(array('default', 'controller'));
-					$action = isset($access[1]) ? $access[1] : Application::get('config')->get(array('default', 'method'));
-				} else {
-					$action = $access;
-				}
-			}
-			$c->actionRedirect($controller, $action);
+			$access = $this->getAccessControllerAction($c, $action);
+			$c->actionRedirect($access['controller'], $access['action']);
 		}
+	}
+
+	private function getAccessControllerAction($controller, $action, $access = false) {
+		$access = !$access ? $this->checkAccess($controller->getAccess(), $action) : $access;
+
+		if($access !== true) {
+			if(is_array($access)) {
+				$controller = isset($access[0]) ? $access[0] : Application::get('config')->get(array('default', 'controller'));
+				$action = isset($access[1]) ? $access[1] : Application::get('config')->get(array('default', 'method'));
+			} else {
+				$action = $access;
+			}
+		}
+
+		return array('controller' => $controller, 'action' => $action);
 	}
 
 	private function checkAccess($access, $action) {
