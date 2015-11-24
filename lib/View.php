@@ -9,30 +9,51 @@ class View extends Instance {
 	private static $afterContent = array();
 	private static $header = array();
 	private static $footer = array();
+	private $pluginName;
 
-	public function __construct($layout) {
+	public function __construct($layout, $plugin) {
+		$this->pluginName = $plugin;
 		$this->layout = $layout;
 	}
 
 	public function get($name, $vars = array()) {
-		$theme = Application::get('config')->get('theme');
 		extract($vars);
 		ob_start();
-		include PATHROOT . DIRECTORY_SEPARATOR . APPENV . '/themes/' . $theme . '/view/' . $name . '.php';
+		$viewFile = $this->getThemesPath() . '/view/' . $name . '.php';
+		if(file_exists($viewFile)) {
+			include $viewFile;
+		} else {
+			echo '';
+		}
 		$content = ob_get_contents();
 		ob_end_clean();
 		return $content;
 	}
 
 	public function render($name, $vars = array()) {
-		$this->addContent($this->get($name, $vars));
-		$this->renderView();
+		$view = $this->get($name, $vars);
+		if($this->pluginName !== false) {
+			echo $view;
+		} else {
+			$this->addContent($view);
+			$this->renderView();
+		}
 	}
 
 	public function renderView() {
 		$this->init();
-		$theme = Application::get('config')->get('theme');
-		include PATHROOT . DIRECTORY_SEPARATOR . APPENV . '/themes/' . $theme . '/layout/' . $this->layout . '.php';
+		include $this->getThemesPath() . '/layout/' . $this->layout . '.php';
+	}
+
+	private function getThemesPath() {
+		$path = PATHROOT . DIRECTORY_SEPARATOR;
+		if($this->pluginName === false) {
+			$theme = Application::get('config')->get('theme');
+			$path .= APPENV . '/themes/' . $theme;
+		} else {
+			$path .= 'plugin/' . $this->pluginName;
+		}
+		return $path;
 	}
 
 	public function content() {

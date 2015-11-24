@@ -4,6 +4,7 @@ namespace application\lib;
 class Controller extends Instance {
 	public $layout = 'main';
 	private $view;
+	private $plugin;
 	protected $access = array(
 		/*array(
 			'action' => array(), //list of actions to access
@@ -13,7 +14,8 @@ class Controller extends Instance {
 	);
 
 	public function __construct() {
-		$this->view = new View($this->layout);
+		$this->plugin = $this->getPluginName();
+		$this->view = new View($this->layout, $this->plugin);
 	}
 
 	public function actionRedirect($controller = false, $action = false) {
@@ -127,5 +129,14 @@ class Controller extends Instance {
 
 	public function getAccess() {
 		return $this->access;
+	}
+
+	private function getPluginName() {
+		$result = false;
+		$class = explode('\controller\\', get_called_class());
+		if('application\\' . APPENV != $class[0]) {
+			$result = substr($class[0], strrpos($class[0], '\\') + 1, strlen($class[0]));
+		}
+		return $result;
 	}
 }
