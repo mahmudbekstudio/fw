@@ -25,11 +25,11 @@ class Controller extends Instance {
 			$action = Application::get('config')->get(array('default', 'method'));
 		}
 
-		$controllerClass = '\application\\' . APPENV . '\controller\\' . ucfirst($controller) . 'Controller';
+		$controllerClass = $this->getControllerClass($controller);
 
 		if(!class_exists($controllerClass)) {
 			$controller = Application::get('config')->get(array('default', 'controller'));
-			$controllerClass = '\application\\' . APPENV . '\controller\\' . ucfirst($controller) . 'Controller';
+			$controllerClass = $this->getControllerClass($controller);
 			$action = '404';
 		}
 
@@ -55,6 +55,12 @@ class Controller extends Instance {
 			$access = $this->getAccessControllerAction($c, $action);
 			$c->actionRedirect($access['controller'], $access['action']);
 		}
+	}
+
+	private function getControllerClass($controller) {
+		$controllerFolder = '\controller\\';
+		$class = explode($controllerFolder, get_called_class());
+		return '\\' . $class[0] . $controllerFolder . ucfirst($controller) . 'Controller';
 	}
 
 	private function getAccessControllerAction($controller, $action, $access = false) {

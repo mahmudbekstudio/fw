@@ -98,4 +98,12 @@ class View extends Instance {
 		}
 	}
 
+	public function plugin($name) {
+		return Plugin::get($name);
+	}
+
+	public function tag($name) {
+		return Tag::get($name);
+	}
+
 }

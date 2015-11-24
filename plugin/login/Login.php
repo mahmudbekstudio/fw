@@ -9,12 +9,8 @@ class Login extends Plugin {
 		parent::__construct();
 	}
 
-	public function init() {
-		parent::init();
-	}
-
 	public function render() {
-		parent::render();
+		$this->renderView('loginForm');
 	}
 
 }

@@ -1,4 +1,4 @@
-<?php echo \application\lib\Tag::getDoctype() . "\n"; ?>
+<?php echo $this->tag('doctype') . "\n"; ?>
 <html lang="en">
 <head>
 	<?php /*
@@ -49,7 +49,9 @@
 <div class="container theme-showcase" role="main">
 	<div class="row">
 		<div class="col-lg-3 col-md-4">
-			<div class="container-block">User</div>
+			<div class="container-block">
+				<?php $this->plugin('login')->render(); ?>
+			</div>
 		</div>
 		<div class="col-lg-6 col-md-8">
 			<div class="container-block">

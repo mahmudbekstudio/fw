@@ -56,4 +56,9 @@ abstract class Instance {
 		return __CLASS__;
 	}
 
+	public function getClassName() {
+		$class = get_called_class();
+		return substr($class, strrpos($class, '\\') + 1, strlen($class));
+	}
+
 }

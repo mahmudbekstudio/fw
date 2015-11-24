@@ -10,22 +10,7 @@ class Application extends Instance {
 		$config->set('root', $config->get(array('path', APPENV)));
 
 		self::initPlugin();
-
-		$match = self::get('router')->match();
-		if($match !== false) {
-			if(is_callable( $match['target'] )) {
-				call_user_func($match['target']);
-			} else {
-				$target = explode('/', $match['target']);
-				$nameSpace = '\application\\' . APPENV . '\controller\\';
-				$controllerName = $nameSpace . ucfirst($target[0] ? $target[0] : $config->get(array('default', 'controller'))) . 'Controller';
-				$actionName = 'action' . ucfirst($target[1] ? $target[1] : $config->get(array('default', 'method')));
-				$controller = new $controllerName();
-				call_user_func_array(array($controller, $actionName), $match['params']);
-			}
-		} else {
-			self::redirect(self::get('router')->generate('redirect', array('controller' => $config->get(array('default', 'controller')))));
-		}
+		self::initRouter($config);
 	}
 
 	public static function set($var, $val) {
@@ -60,7 +45,34 @@ class Application extends Instance {
 		$pluginsListCount = count($pluginsList);
 
 		for($i = 0; $i < $pluginsListCount; $i++) {
-			Plugin::get($pluginsList[$i])->init();
+			Plugin::get($pluginsList[$i]);
+		}
+	}
+
+	private static function initRouter($config) {
+		$match = self::get('router')->match();
+		if($match !== false) {
+			if(is_callable( $match['target'] )) {
+				call_user_func($match['target']);
+			} else {
+				$target = explode('/', $match['target']);
+
+				if(count($target) == 3 && $target[0] == 'plugin') {
+					$pluginName = $match['params']['name'];
+					$nameSpace = '\application\plugin\\' . $pluginName . '\controller\\';
+					unset($match['params']['name']);
+					array_shift($target);
+				} else {
+					$nameSpace = '\application\\' . APPENV . '\controller\\';
+				}
+
+				$controllerName = $nameSpace . ucfirst($target[0] ? $target[0] : $config->get(array('default', 'controller'))) . 'Controller';
+				$actionName = 'action' . ucfirst($target[1] ? $target[1] : $config->get(array('default', 'method')));
+				$controller = new $controllerName();
+				call_user_func_array(array($controller, $actionName), $match['params']);
+			}
+		} else {
+			self::redirect(self::get('router')->generate('redirect', array('controller' => $config->get(array('default', 'controller')))));
 		}
 	}
 }

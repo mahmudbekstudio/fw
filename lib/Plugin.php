@@ -4,20 +4,9 @@ namespace application\lib;
 
 class Plugin extends Instance {
 	private static $list = array();
-	private $initialized = false;
 
 	public function __construct() {
 		//
-	}
-
-	public function init() {
-		$this->initialized = true;
-	}
-
-	public function render() {
-		if(!$this->initialized) {
-			$this->init();
-		}
 	}
 
 	public static function get($pluginName) {
@@ -27,5 +16,18 @@ class Plugin extends Instance {
 		}
 
 		return self::$list[$pluginName];
+	}
+
+	public function getView($name, $vars = array()) {
+		extract($vars);
+		ob_start();
+		include PATHROOT . '/plugin/' . $this->getClassName() . '/view/' . $name . '.php';
+		$content = ob_get_contents();
+		ob_end_clean();
+		return $content;
+	}
+
+	public function renderView($name, $vars = array()) {
+		echo $this->getView($name, $vars);
 	}
 }
