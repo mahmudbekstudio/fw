@@ -103,6 +103,7 @@ class Controller extends Instance {
 	}
 
 	public function action404() {
+		header("HTTP/1.0 404 Not Found");
 		$this->getView()->render('404');
 	}
 
