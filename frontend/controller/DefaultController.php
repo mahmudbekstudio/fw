@@ -26,10 +26,6 @@ class DefaultController extends Controller {
 		$this->getView()->render('test', array('request' => $request));
 	}
 
-	public function action404() {
-		echo __CLASS__ . ' 404';
-	}
-
 	public function actionTesting() {
 		echo 'testing';
 	}

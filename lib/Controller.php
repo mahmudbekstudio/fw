@@ -26,6 +26,13 @@ class Controller extends Instance {
 		}
 
 		$controllerClass = '\application\\' . APPENV . '\controller\\' . ucfirst($controller) . 'Controller';
+
+		if(!class_exists($controllerClass)) {
+			$controller = Application::get('config')->get(array('default', 'controller'));
+			$controllerClass = '\application\\' . APPENV . '\controller\\' . ucfirst($controller) . 'Controller';
+			$action = '404';
+		}
+
 		if('\\' . get_called_class() == $controllerClass) {
 		// work when call actionRedirect in the controller current controller action
 			if(method_exists($this, 'action' . $action)) {
@@ -96,7 +103,7 @@ class Controller extends Instance {
 	}
 
 	public function action404() {
-		echo __CLASS__ . ' 404';
+		$this->getView()->render('404');
 	}
 
 	public function getModel($name) {
