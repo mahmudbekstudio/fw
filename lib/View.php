@@ -10,9 +10,11 @@ class View extends Instance {
 	private static $header = array();
 	private static $footer = array();
 	private $pluginName;
+	private $controllerName;
 
-	public function __construct($layout, $plugin) {
+	public function __construct($layout, $plugin, $controllerName = '') {
 		$this->pluginName = $plugin;
+		$this->controllerName = $controllerName;
 		$this->layout = $layout;
 	}
 
@@ -27,7 +29,9 @@ class View extends Instance {
 		}
 		$content = ob_get_contents();
 		ob_end_clean();
-		return $content;
+		$params = array();
+		$params['class'] = ($this->pluginName !== false ? 'p' : 'c') . '-' . ($this->controllerName != '' ? $this->controllerName : $this->pluginName);
+		return $this->tag('div', $params, $content);
 	}
 
 	public function render($name, $vars = array()) {
@@ -123,8 +127,8 @@ class View extends Instance {
 		return Plugin::get($name);
 	}
 
-	public function tag($name) {
-		return Tag::get($name);
+	public function tag($name, $params = array(), $inner = '') {
+		return Tag::get($name, $params, $inner);
 	}
 
 }

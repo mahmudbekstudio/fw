@@ -15,7 +15,7 @@ class Controller extends Instance {
 
 	public function __construct() {
 		$this->plugin = $this->getPluginName();
-		$this->view = new View($this->layout, $this->plugin);
+		$this->view = new View($this->layout, $this->plugin, substr($this->getClassName(true), 0, -10));
 	}
 
 	public function actionRedirect($controller = false, $action = false) {
@@ -67,17 +67,17 @@ class Controller extends Instance {
 
 	private function getAccessControllerAction($controller, $action, $access = false) {
 		$access = !$access ? $this->checkAccess($controller->getAccess(), $action) : $access;
-
+		$controllerClass = substr($controller->getClassName(), 0, -10);
 		if($access !== true) {
 			if(is_array($access)) {
-				$controller = isset($access[0]) ? $access[0] : Application::get('config')->get(array('default', 'controller'));
+				$controllerClass = isset($access[0]) ? $access[0] : Application::get('config')->get(array('default', 'controller'));
 				$action = isset($access[1]) ? $access[1] : Application::get('config')->get(array('default', 'method'));
 			} else {
 				$action = $access;
 			}
 		}
 
-		return array('controller' => $controller, 'action' => $action);
+		return array('controller' => $controllerClass, 'action' => $action);
 	}
 
 	private function checkAccess($access, $action) {

@@ -56,9 +56,13 @@ abstract class Instance {
 		return __CLASS__;
 	}
 
-	public function getClassName() {
+	public function getClassName($inLowerCase = false) {
 		$class = get_called_class();
-		return substr($class, strrpos($class, '\\') + 1, strlen($class));
+		$className = substr($class, strrpos($class, '\\') + 1, strlen($class));
+		if($inLowerCase) {
+			$className = strtolower($className);
+		}
+		return $className;
 	}
 
 }

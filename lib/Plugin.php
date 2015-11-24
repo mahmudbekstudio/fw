@@ -19,12 +19,8 @@ class Plugin extends Instance {
 	}
 
 	public function getView($name, $vars = array()) {
-		extract($vars);
-		ob_start();
-		include PATHROOT . '/plugin/' . $this->getClassName() . '/view/' . $name . '.php';
-		$content = ob_get_contents();
-		ob_end_clean();
-		return $content;
+		$view = new View('', $this->getClassName(true));
+		return $view->get($name, $vars);
 	}
 
 	public function renderView($name, $vars = array()) {
