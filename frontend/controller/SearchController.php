@@ -16,6 +16,6 @@ class SearchController extends Controller {
 	}
 
 	public function actionTest() {
-		echo 'search test';
+		$this->getView()->render('search/test');
 	}
 }
