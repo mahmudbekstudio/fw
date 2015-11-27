@@ -15,7 +15,7 @@ if( !defined('BASEURL') )
 	define('BASEURL', substr($_SERVER['PHP_SELF'], 0, strlen($_SERVER['PHP_SELF']) - 10));
 
 function __autoload($className) {
-	$file = str_replace('application', PATHROOT, str_replace('\\', DIRECTORY_SEPARATOR, $className)) . '.php';
+	$file = PATHROOT . str_replace('application', '', str_replace('\\', DIRECTORY_SEPARATOR, $className)) . '.php';
 
 	if (!file_exists($file)) {
 		return false;
