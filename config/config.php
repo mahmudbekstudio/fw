@@ -28,8 +28,11 @@ return array(
 			array('GET|POST', '/plugin/[a:name]/[a:controller]/[a:action]/?', 'plugin/default/redirect', 'pluginRedirect'),
 			array('GET|POST', '/plugin/[a:name]/[a:controller]/?', 'plugin/default/redirect', 'pluginRedirectController'),
 			array('GET|POST', '/plugin/[a:name]/?', 'plugin/default/redirect', 'pluginRedirectEmpty'),
+			array('GET|POST', '/[a:controller]/[a:action]/p/[i:p]/?', 'default/redirect', 'redirectPage'),
 			array('GET|POST', '/[a:controller]/[a:action]/?', 'default/redirect', 'redirect'),
+			array('GET|POST', '/[a:controller]/p/[i:p]/?', 'default/redirect', 'redirectControllerPage'),
 			array('GET|POST', '/[a:controller]/?', 'default/redirect', 'redirectController'),
+			array('GET|POST', '/p/[i:p]/?', 'default/redirect', 'redirectEmptyPage'),
 			array('GET|POST', '/?', 'default/redirect', 'redirectEmpty'),
 			array('GET|POST', '*', 'default/404', '404')
 		)
