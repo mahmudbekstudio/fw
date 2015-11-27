@@ -19,14 +19,6 @@ class Controller extends Instance {
 	}
 
 	public function actionRedirect($controller = false, $action = false) {
-		if($controller == false) {
-			$controller = Application::get('config')->get(array('default', 'controller'));
-		}
-
-		if($action == false) {
-			$action = Application::get('config')->get(array('default', 'method'));
-		}
-
 		$controllerClass = $this->getControllerClass($controller);
 
 		if(!class_exists($controllerClass)) {

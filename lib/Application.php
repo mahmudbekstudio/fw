@@ -69,10 +69,34 @@ class Application extends Instance {
 				$controllerName = $nameSpace . ucfirst($target[0] ? $target[0] : $config->get(array('default', 'controller'))) . 'Controller';
 				$actionName = 'action' . ucfirst($target[1] ? $target[1] : $config->get(array('default', 'method')));
 				$controller = new $controllerName();
+
+				if(!isset($match['params']['controller'])) {
+					$match['params']['controller'] = $config->get(array('default', 'controller'));
+				}
+
+				if(!isset($match['params']['action'])) {
+					$match['params']['action'] = $config->get(array('default', 'method'));
+				}
+
+				$match['params'] = self::initRouterParams($match['params']);
 				call_user_func_array(array($controller, $actionName), $match['params']);
 			}
 		} else {
 			self::redirect(self::get('router')->generate('redirect', array('controller' => $config->get(array('default', 'controller')))));
 		}
+	}
+
+	private static function initRouterParams($params) {
+		$defaultParams = array('controller', 'action');
+		$result = array();
+		$request = new Request('get');
+		foreach($params as $key => $val) {
+			$request->set($key, $val);
+
+			if(in_array($key, $defaultParams)) {
+				$result[$key] = $val;
+			}
+		}
+		return $result;
 	}
 }
